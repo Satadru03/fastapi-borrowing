@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+my_env/
+venv/
+
+# Logs
+*.log
+
+# Env files
+.env
+
+*ipynb_checkpoints

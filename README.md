@@ -1,0 +1,1 @@
+The model outputs a probability of default. A default classification (Default = 1) corresponds to a probability ≥ 0.5, which is the standard decision threshold. The probability is returned to allow future adjustment of risk tolerance without retraining the model.
