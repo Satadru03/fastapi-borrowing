@@ -162,8 +162,8 @@ Young borrower with minimal income and poor credit history.
   "LoanTerm": 12,
   "DTIRatio": 0.1,
   "Education": "Bachelor's",
-  "EmploymentType": "Unemployed",
-  "MaritalStatus": "Single",
+  "EmploymentType": "Full-time",
+  "MaritalStatus": "Divorced",
   "LoanPurpose": "Other",
   "HasMortgage": "Yes",
   "HasDependents": "Yes",
@@ -177,7 +177,7 @@ Young borrower with minimal income and poor credit history.
 {
   "Default": 1,
   "decision": "will_default",
-  "probability": 0.607
+  "probability": 0.512
 }
 ```
 
