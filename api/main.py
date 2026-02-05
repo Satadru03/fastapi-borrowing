@@ -4,20 +4,31 @@ import pandas as pd
 import logging
 import time
 
-from schema import Borrower
+from api.schema import Borrower
+from pathlib import Path
+
+# ---- PATH SETUP ----
+BASE_DIR = Path(__file__).resolve().parent   # /app/api
+LOG_DIR = BASE_DIR.parent / "logs"           # /app/logs
+LOG_DIR.mkdir(exist_ok=True)
+
+MODEL_PATH = BASE_DIR / "model.pkl"
+LOG_PATH = LOG_DIR / "app.log"
+
+# ---- APP ----
 app = FastAPI()
 
+# ---- LOGGING ----
 logging.basicConfig(
-    filename="../logs/app.log",
+    filename=LOG_PATH,
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s"
 )
 
 logger = logging.getLogger(__name__)
 
-# Load model once at startup
-model = joblib.load("model.pkl")
-
+# ---- MODEL LOAD ----
+model = joblib.load(MODEL_PATH)
 logger.info("Model loaded successfully")
 
 @app.post("/predict")
@@ -39,7 +50,7 @@ def predict(borrower: Borrower):
 
         response = {
             "Default": int(prediction),
-            "decision": {decision},
+            "decision": decision,
             "probability": round(probability, 3)
         }
 
@@ -51,7 +62,7 @@ def predict(borrower: Borrower):
     except Exception as e:
         duration = time.time() - start_time
         logger.error(
-            f"Prediction failed | Input: {borrower.model_dump(mode="json")} | "
+            f"Prediction failed | Input: {borrower.model_dump(mode='json')} | "
             f"Error: {str(e)} | Time: {duration:.4f}s"
         )
 
